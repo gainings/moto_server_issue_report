@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  moto:
+    image: "motoserver/moto:1.3.16"
+    ports:
+      - 5000:5000
+  app:
+    build:
+      context: "."
+    # Loop without doing anything to keep the container running
+    command: ["sh","-c","while true; do sleep 1m; done"]
+    depends_on:
+      - moto
+    volumes:
+      - ".:/usr/src/app"
